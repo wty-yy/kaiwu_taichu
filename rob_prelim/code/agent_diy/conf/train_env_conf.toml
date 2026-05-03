@@ -1,0 +1,26 @@
+[env_conf]
+# Maps used for training. Customize by keeping only desired map IDs, e.g. [1, 2] for maps 1 and 2.
+# 训练使用的地图。可自定义选择期望用来训练的地图，如只期望使用1、2号地图训练数组内仅保留[1,2]即可。
+map = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+# Whether to randomly select maps. Boolean. 
+# true = randomly pick one from configured maps per episode, false = used sequentially.
+# 是否随机抽取地图。布尔值。true表示每局从配置的地图中随机抽取一张，false表示按顺序抽取地图训练。
+map_random = false
+
+# Number of official robots. Range: 1~4 (integer). 
+# In each round, official robots will be randomly generated on the road according to the configured.
+# 官方机器人数量。可配置范围为1～4（整数）。每局将按照配置数量在道路上随机生成官方机器人。
+robot_count = 4
+
+# Number of chargers. Range: 1~4 (integer). When less than 4, spawn points are randomly chosen.
+# 充电桩数量。可配置范围为1～4（整数）。当配置小于4时，将从每张地图可生成充电桩的点位随机选择对应数量的点位生成。
+charger_count = 4
+
+# Maximum steps. The task ends when the predicted steps in a single round reach the maximum. Range: 1~2000.
+# 最大步数。单局任务预测步数达到最大步数时，任务结束。可配置范围为1～2000。
+max_step = 1000
+
+# Maximum battery. The battery level when fully charged. Range: 100~999.
+# 最大电量。满电状态下的电量。可配置范围100～999。
+battery_max = 200

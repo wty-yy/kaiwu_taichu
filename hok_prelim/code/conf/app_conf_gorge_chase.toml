@@ -1,0 +1,6 @@
+[gorge_chase]
+rl_helper = "kaiwudrl.server.aisrv.kaiwu_rl_helper_standard.KaiWuRLStandardHelper"
+
+[gorge_chase.policies.train_one]
+policy_builder = "kaiwudrl.server.aisrv.async_policy.AsyncBuilder"
+algo = "ppo"

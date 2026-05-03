@@ -1,0 +1,15 @@
+[ppo]
+actor_agent = "agent_ppo.agent.Agent"
+learner_agent = "agent_ppo.agent.Agent"
+aisrv_agent = "agent_ppo.agent.Agent"
+train_workflow = "agent_ppo.workflow.train_workflow.workflow"
+eval_workflow = "tools.eval.workflow.eval_workflow.workflow"
+exam_workflow = "tools.eval.workflow.exam_workflow.workflow"
+
+[diy]
+actor_agent = "agent_diy.agent.Agent"
+learner_agent = "agent_diy.agent.Agent"
+aisrv_agent = "agent_diy.agent.Agent"
+train_workflow = "agent_diy.workflow.train_workflow.workflow"
+eval_workflow = "tools.eval.workflow.eval_workflow.workflow"
+exam_workflow = "tools.eval.workflow.exam_workflow.workflow"

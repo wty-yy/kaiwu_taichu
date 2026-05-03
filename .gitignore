@@ -1,0 +1,11 @@
+mydebug
+.vscode
+log
+train
+dev
+license.dat
+__pycache__/
+*.pth
+*.pkl
+frames
+map

@@ -1,0 +1,69 @@
+[app]
+
+# Replay buffer configurations
+# 样本池容量
+replay_buffer_capacity = 50000
+
+# The ratio of the sample pool capacity that triggers training
+# 当样本池中的样本占总容量的比例达到该值时，启动训练
+preload_ratio = 1.0
+
+# When new samples are added to the sample pool, the logic for removing old samples: reverb.selectors.Lifo, reverb.selectors.Fifo
+# 当新样本加入样本池时，旧样本的移除逻辑，可选项：reverb.selectors.Lifo, reverb.selectors.Fifo
+# reverb.selectors.Lifo：先进后出(Last In, First Out)
+# reverb.selectors.Fifo：先进先出(First In, First Out)
+reverb_remover = "reverb.selectors.Fifo"
+
+# The sampling logic of the Learner from the sample pool: reverb.selectors.Fifo, reverb.selectors.Uniform
+# Learner从样本池中采样的逻辑，可选项：reverb.selectors.Fifo, reverb.selectors.Uniform
+# reverb.selectors.Uniform：Samples are selected uniformly at random from the replay buffer, with each sample having an equal probability of being chosen.
+# reverb.selectors.Uniform：从回放缓冲区中随机均匀地选择样本，每个样本被选中的概率相同。
+# reverb.selectors.Fifo：Samples are selected in the order they were added to the replay buffer.
+# reverb.selectors.Fifo：按照先进先出从回放缓冲区中选择样本。
+reverb_sampler = "reverb.selectors.Uniform"
+
+# Control strategy for balancing data insertion and sampling in experience replay. Options: SampleToInsertRatio, MinSize
+# 控制经验回放库中数据插入与采样的动态平衡策略，可选项：SampleToInsertRatio, MinSize
+# How to choose
+# 如何选择:
+#   - SampleToInsertRatio: Use when training is faster than sample generation (e.g. GPU training with few envs)
+#     适用于训练速度快于样本产出速度的场景（如GPU训练、少量环境数目），严格控制每条样本被复用的次数，防止过拟合
+#   - MinSize: Use when sample generation is faster than training (e.g. local CPU training, or many envs)
+#     适用于样本产出速度快于训练速度的场景（如本地CPU训练、大量环境数目），buffer达到阈值后即可全速训练，不限制复用次数
+# reverb_samples_per_insert: Max sampling times per inserted sample (only for SampleToInsertRatio)
+# 参数reverb_samples_per_insert: 每插入1条样本允许采样的最大次数（仅SampleToInsertRatio模式生效）
+# reverb_error_buffer: Tolerance buffer for ratio constraint, similar to TCP sliding window (only for SampleToInsertRatio)
+# 参数reverb_error_buffer: 比例限制的弹性缓冲区间，类似TCP滑动窗口（仅SampleToInsertRatio模式生效）
+reverb_rate_limiter = "SampleToInsertRatio"
+reverb_samples_per_insert = 3
+reverb_error_buffer = 5
+
+# Training batch size limit for Learner
+# Learner训练时样本批处理大小
+train_batch_size = 1024
+
+# Model dump frequency (steps)
+# 训练间隔多少步输出模型参数文件
+dump_model_freq = 100
+
+# The Learner pushes model updates, and the frequency at which Actors fetch the model (in minutes).
+# Learner推送模型参数文件至模型池，以及Actor从模型池获取模型参数文件的频次（单位：分钟）
+model_file_sync_per_minutes = 1
+
+# The number of model updates pushed per learner iteration, and the maximum number of updates each actor can fetch at once (cap: 50).
+# Learner每次推送模型参数文件，以及Actor每次获取模型参数文件的数量（上限：50）
+modelpool_max_save_model_count = 1
+
+# Whether to enable the preload model function. If enabled (true), the model specified by preload_model_id will be loaded as the initial model in the preload_model_dir directory; if disabled (false), no preloading will be performed.
+# 是否启用预加载模型功能，若开启(true)，将在preload_model_dir目录下加载由preload_model_id指定的模型作为初始模型；若关闭(false)，则不进行预加载。
+preload_model = false
+
+# The relative path of the preloaded model folder (the variable name {agent_name} refers to the agent_algorithm name directory in the code package). It is only effective when preload_model=true. When the preload model function is enabled, you need to create a new ckpt folder under the agent_algorithm name directory in the code package and place the model file (.pkl) there.
+# 预加载模型文件夹相对路径(变量名{agent_name}指代码包中agent_算法名目录)，仅在preload_model=true时生效；当开启预加载模型功能时，需要在代码包中agent_算法名目录下新建ckpt文件夹，将模型文件（.pkl）放置此即可。
+preload_model_dir = "{agent_name}/ckpt"
+
+# The identification ID of the preloaded model (here refers to the number of model training steps). This ID corresponds to the number of training steps recorded in the model file name. It only takes effect when preload_model=true.
+# Note that it is forbidden to modify the original model file name, otherwise the model preloading process will fail.
+# 预加载模型的标识ID（这里指模型训练步数），该ID对应模型文件名中的训练步数记录。仅在preload_model=true时生效。
+# 注意，禁止修改原始模型文件名，否则将导致模型预加载流程失败。
+preload_model_id = 1000

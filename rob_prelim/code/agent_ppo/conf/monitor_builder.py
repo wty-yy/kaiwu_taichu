@@ -1,0 +1,223 @@
+#!/usr/bin/env python3
+# -*- coding: UTF-8 -*-
+###########################################################################
+# Copyright © 1998 - 2026 Tencent. All Rights Reserved.
+###########################################################################
+"""
+Author: Tencent AI Arena Authors
+
+Monitor panel configuration builder for Robot Vacuum.
+清扫大作战监控面板配置构建器。
+"""
+
+
+from kaiwudrl.common.monitor.monitor_config_builder import MonitorConfigBuilder
+
+
+def build_monitor():
+    """
+    # This function is used to create monitoring panel configurations for custom indicators.
+    # 该函数用于创建自定义指标的监控面板配置。
+    """
+    monitor = MonitorConfigBuilder()
+
+    config_dict = (
+        monitor.title("清扫大作战")
+        .add_group(
+            group_name="算法指标",
+            group_name_en="algorithm",
+        )
+        .add_panel(
+            name="累积回报",
+            name_en="reward",
+            type="line",
+        )
+        .add_metric(
+            metrics_name="reward",
+            expr="avg(reward{})",
+        )
+        .end_panel()
+        .add_panel(
+            name="终局奖励",
+            name_en="final_reward",
+            type="line",
+        )
+        .add_metric(
+            metrics_name="final_reward",
+            expr="avg(final_reward{})",
+        )
+        .end_panel()
+        .add_panel(
+            name="结束条件-撞到NPC",
+            name_en="end_by_npc_collision",
+            type="line",
+        )
+        .add_metric(
+            metrics_name="end_by_npc_collision",
+            expr="avg(end_by_npc_collision{})",
+        )
+        .end_panel()
+        .add_panel(
+            name="结束条件-电量耗尽",
+            name_en="end_by_battery_depleted",
+            type="line",
+        )
+        .add_metric(
+            metrics_name="end_by_battery_depleted",
+            expr="avg(end_by_battery_depleted{})",
+        )
+        .end_panel()
+        .add_panel(
+            name="有效清洁奖励分量",
+            name_en="reward_valid_clean",
+            type="line",
+        )
+        .add_metric(
+            metrics_name="reward_valid_clean",
+            expr="avg(reward_valid_clean{})",
+        )
+        .end_panel()
+        .add_panel(
+            name="边缘清扫奖励分量",
+            name_en="reward_edge_clean",
+            type="line",
+        )
+        .add_metric(
+            metrics_name="reward_edge_clean",
+            expr="avg(reward_edge_clean{})",
+        )
+        .end_panel()
+        .add_panel(
+            name="连续清扫奖励分量",
+            name_en="reward_continuous_clean",
+            type="line",
+        )
+        .add_metric(
+            metrics_name="reward_continuous_clean",
+            expr="avg(reward_continuous_clean{})",
+        )
+        .end_panel()
+        .add_panel(
+            name="连续未清扫惩罚分量",
+            name_en="reward_continuous_no_clean",
+            type="line",
+        )
+        .add_metric(
+            metrics_name="reward_continuous_no_clean",
+            expr="avg(reward_continuous_no_clean{})",
+        )
+        .end_panel()
+        .add_panel(
+            name="步数惩罚奖励分量",
+            name_en="reward_step_punish",
+            type="line",
+        )
+        .add_metric(
+            metrics_name="reward_step_punish",
+            expr="avg(reward_step_punish{})",
+        )
+        .end_panel()
+        .add_panel(
+            name="不移动奖励分量",
+            name_en="reward_no_move",
+            type="line",
+        )
+        .add_metric(
+            metrics_name="reward_no_move",
+            expr="avg(reward_no_move{})",
+        )
+        .end_panel()
+        .add_panel(
+            name="危险距离奖励分量",
+            name_en="reward_danger_distance",
+            type="line",
+        )
+        .add_metric(
+            metrics_name="reward_danger_distance",
+            expr="avg(reward_danger_distance{})",
+        )
+        .end_panel()
+        .add_panel(
+            name="低电量靠近充电桩奖励分量",
+            name_en="reward_approach_charger_low_battery",
+            type="line",
+        )
+        .add_metric(
+            metrics_name="reward_approach_charger_low_battery",
+            expr="avg(reward_approach_charger_low_battery{})",
+        )
+        .end_panel()
+        .add_panel(
+            name="终局奖励分量",
+            name_en="reward_terminal",
+            type="line",
+        )
+        .add_metric(
+            metrics_name="reward_terminal",
+            expr="avg(reward_terminal{})",
+        )
+        .end_panel()
+        .add_panel(
+            name="总损失",
+            name_en="total_loss",
+            type="line",
+        )
+        .add_metric(
+            metrics_name="total_loss",
+            expr="avg(total_loss{})",
+        )
+        .end_panel()
+        .add_panel(
+            name="价值损失",
+            name_en="value_loss",
+            type="line",
+        )
+        .add_metric(
+            metrics_name="value_loss",
+            expr="avg(value_loss{})",
+        )
+        .end_panel()
+        .add_panel(
+            name="策略损失",
+            name_en="policy_loss",
+            type="line",
+        )
+        .add_metric(
+            metrics_name="policy_loss",
+            expr="avg(policy_loss{})",
+        )
+        .end_panel()
+        .add_panel(
+            name="熵损失",
+            name_en="entropy_loss",
+            type="line",
+        )
+        .add_metric(
+            metrics_name="entropy_loss",
+            expr="avg(entropy_loss{})",
+        )
+        .end_panel()
+        .add_panel(
+            name="学习率",
+            name_en="learning_rate",
+            type="line",
+        )
+        .add_metric(
+            metrics_name="learning_rate",
+            expr="avg(learning_rate{})",
+        )
+        .end_panel()
+        .add_panel(
+            name="熵系数",
+            name_en="ent_coef",
+            type="line",
+        )
+        .add_metric(
+            metrics_name="ent_coef",
+            expr="avg(ent_coef{})",
+        )
+        .end_panel()
+        .end_group()
+        .build()
+    )
+    return config_dict

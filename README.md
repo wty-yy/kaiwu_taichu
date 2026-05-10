@@ -6,7 +6,6 @@
 | [`hok_prelim`](./hok_prelim/) | 王者初赛 | 17/242 | outsiders |
 | [`rob_prelim`](./rob_prelim/) | 四足初赛 | 6/72 | 太初 |
 
-两个比赛题目基本一致，但是版本名和版本上存在小差别
 - `hok_prelim`: 智能体赛道代码
 - `rob_prelim`: 机器人赛道代码
 > 在腾讯开悟客户端中选择工作路径分别为`/path/to/your/hok_prelim`和`/path/to/your/rob_prelim`即可
